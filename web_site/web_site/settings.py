@@ -9,7 +9,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['Arta070101.pythonanywhere.com']
+ALLOWED_HOSTS = ['arta070101.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
