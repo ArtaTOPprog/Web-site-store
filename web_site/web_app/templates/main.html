@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Интернет-магазин</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="/">CHAPAK</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'basket' %}">Корзина</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Корзина</a></li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'user_section' %}">Личный кабинет</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Личный кабинет</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-buttons container">
+    <div class="row w-100">
+      <div class="col-12">
+        <h1 class="">Добро пожаловать в наш магазин!</h1>
+        <p class="">Выбирайте лучшие товары по приятным ценам</p>
+        <a href="{% url 'product' %}" class="btn btn-primary btn-custom" id="button-seller">Перейти к покупкам</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="contacts" class="block_contacts">
+    <h2 class="our_contacts">Наши контакты</h2>
+    <div class="list_contacts">
+      <div class="phone">
+        <h5>Телефон</h5>
+        <p>+7 (900) 123-45-67</p>
+      </div>
+      <div class="email">
+        <h5>Email</h5>
+        <p>info@shop.ru</p>
+      </div>
+      <div class="adress">
+        <h5>Адрес</h5>
+        <p>Москва, ул. Примерная, д. 10</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 Интернет-магазин. Все права защищены.</p>
+  </footer>
+</body>
+
+</html>

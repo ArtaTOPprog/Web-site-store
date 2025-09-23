@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'login.css' %}">
+  <title>Вход в аккаунт</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Вход в аккаунт</h2>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Пароль" required>
+      <button type="submit">Войти</button>
+    </form>
+    <div class="extra-links">
+      <p>Нет аккаунта? <a href="registration">Зарегистрироваться</a></p>
+      <p><a href="/">Вернуться на главную</a></p>
+    </div>
+    {% if form.errors %}
+      <div class="error">
+        {{ form.errors }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

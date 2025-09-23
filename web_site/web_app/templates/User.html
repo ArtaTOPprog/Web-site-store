@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="{% static 'User.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <main class="main-content">
+            <form action="{% url 'user_section' %}" class="profile-info" method="post">
+                {% csrf_token %}
+                <h2>Информация о пользователе</h2>
+                <p><strong>Имя:</strong> {{form.first_name}}</p>
+                <p><strong>Фамилия:</strong> {{form.last_name}}</p>
+                <p><strong>Имя пользователя:</strong> {{form.username}}</p>
+                <p><strong>Email:</strong> {{form.email}}</p>
+                <p><strong>City:</strong> {{form.city}}</p>
+                <input type="submit" class="edit-button" value="Сохранить">
+                <a href="{% url 'logout_akk' %} " class="logout">Выйти</a>
+                <a href="{% url 'product' %}" class="back">К товарам</a>
+            </form>
+
+
+            <section class="user-activities">
+                <h2>Добро пожаловать в ваш личный кабинет!</h2>
+                <p>Мы рады видеть вас здесь! Этот пространство создано специально для вас, чтобы сделать ваше
+                    взаимодействие
+                    с нами максимально удобным и приятным.
+                    Здесь вы сможете:
+                    • Управлять своими данными: Обновляйте личную информацию, следите за своими предпочтениями и
+                    настройками.</p>
+            </section>
+        </main>
+</body>
+
+</html>
