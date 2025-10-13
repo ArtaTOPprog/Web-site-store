@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интернет-магазин</title>
+  <link rel="stylesheet" href="{% static 'product.css' %}">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="/" class="logo">CHAPAK</a>
+      <nav class="nav">
+        <a href="{% url 'main' %}" class="nav-link">Главная</a>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'basket' %}" class="nav-link">Корзина</a>
+        {% else %}
+        <a href="{% url 'register' %}" class="nav-link">Корзина</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'user_section' %}" class="nav-link">Личный кабинет</a>
+        {% else %}
+        <a href="{% url 'register' %}" class="nav-link">Личный кабинет</a>
+        {% endif %}
+      </nav>
+
+    </div>
+  </header>
+  <button id="filter-toggle" class="filter">
+    ☰
+  </button>
+  <aside class="sidebar" id="sidebar">
+    <h3>Фильтры</h3>
+    <ul>
+      {% for category in categories %}
+      <li><a href="{% url 'category' category.id %}">{{ category.name }}</a></li>
+      {% endfor %}
+      <li><a href="{% url 'product' %}">Все товары</a></li>
+    </ul>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="products-container">
+    {% for product in products %}
+    <div class="product-card">
+      {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      {% endif %}
+      <div class="card-content">
+        <h3 class="card-title">{{ product.name }}</h3>
+        <p class="card-desc">{{ product.description }}</p>
+      </div>
+      <div class="card-footer">
+        <span class="price">{{ product.price }} ₽</span>
+        {% if product.old_price %}
+        <span class="old-price">{{ product.old_price }} ₽</span>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated %}
+      <form action="{% url 'basket_add' product.id %}">
+        <button class="btn-product">В корзину</button>
+      </form>
+      {% else %}
+      <form action="{% url 'register' %}">
+        <button class="btn-product">В корзину</button>
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggle = document.getElementById("filter-toggle");
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+  </script> -->
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggle = document.getElementById("filter-toggle");
+    const overlay = document.getElementById("overlay");
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("active");
+    });
+  </script>
+</body>
+
+</html>
